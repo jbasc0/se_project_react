@@ -17,3 +17,7 @@
   align-items: center;
   gap: 20px;
 }
+
+.card__section {
+  padding: 0 40px;
+}

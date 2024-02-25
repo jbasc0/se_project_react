@@ -1,13 +1,13 @@
 .weather {
   position: relative;
-  height: 80px;
+  padding: 0 40px;
 }
 
 .weather__info {
   position: absolute;
   color: #fff;
   top: 20px;
-  left: 16px;
+  left: 56px;
   line-height: 40px;
   font-size: 36px;
   font-weight: 700;
@@ -16,8 +16,4 @@
 .weather__image {
   width: 100%;
   height: 100%;
-}
-
-.weather__container {
-  padding: 0 40px;
 }
