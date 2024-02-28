@@ -5,7 +5,10 @@ const ItemModal = ({ selectedCard, onClose }) => {
     <div className={"modal"}>
       <div className="modal__item-content">
         <button className="modal__item-close" type="button" onClick={onClose}>
-          <img src={require("../images/close item.svg").default} alt="close" />
+          <img
+            src={require("../../images/close item.svg").default}
+            alt="close"
+          />
         </button>
         <img className="modal__image" src={selectedCard.link} />
 
