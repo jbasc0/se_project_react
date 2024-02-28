@@ -1,26 +1,30 @@
-.card__section {
-  margin-top: 20px;
+.app {
+  background: #f3f3f3;
+  min-height: 100vh;
+  min-width: 100vh;
 }
 
-.card__name {
-  text-align: center;
+.app__name {
+  margin-bottom: 5px;
 }
 
-.card__image {
-  width: 328px;
-  height: 328px;
-  border-radius: 10px;
+.app__url {
+  margin-bottom: 5px;
 }
-.card__items {
+
+.app__name-input {
+  border: none;
+  border-bottom: solid 1px;
+  margin-bottom: 20px;
+}
+
+.app__image-input {
+  border: none;
+  border-bottom: solid 1px;
+}
+
+.app__buttons {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-between;
-  margin: 40px 40px 32px;
+  flex-direction: column;
+  gap: 5px;
 }

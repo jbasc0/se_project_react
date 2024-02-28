@@ -2,6 +2,7 @@ import { defaultClothingItems } from "../utils/const";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import { useMemo } from "react";
+import "./Main.css";
 
 function Main({ weatherTemp, onSelectCard }) {
   const weatherType = useMemo(() => {
@@ -20,10 +21,12 @@ function Main({ weatherTemp, onSelectCard }) {
 
   return (
     <main className="main">
-      <WeatherCard day={false} type="storm" weatherTemp={weatherTemp} />
-      <section className="card__section" id="card-section">
-        Today is {weatherTemp} F / You may want to wear:
-        <div className="card__items">
+      <WeatherCard day={true} type="sunny" weatherTemp={weatherTemp} />
+      <div className="main__title">
+        Today is {weatherTemp}°F / You may want to wear:
+      </div>
+      <section className="main__card-section" id="card-section">
+        <div className="main__card-items">
           {filteredCards.map((item) => (
             <ItemCard item={item} onSelectCard={onSelectCard} />
           ))}

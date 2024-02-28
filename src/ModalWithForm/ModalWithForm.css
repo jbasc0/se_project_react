@@ -10,10 +10,42 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal__content {
+.modal__form-content {
   background-color: #fff;
-  max-width: 496px;
+  max-width: 440px;
+  max-height: 376px;
   width: 100%;
   border-radius: 20px;
-  padding: 34px 36px;
+  padding: 30px 30px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.modal__form-close {
+  background: none;
+  border: none;
+  position: absolute;
+  padding: 0;
+  margin-left: 420px;
+  margin-bottom: 356px;
+}
+
+.modal__form-close:hover {
+  cursor: pointer;
+}
+
+.modal__title {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+}
+
+.modal__button-submit {
+  padding: 0;
+  margin-top: 20px;
 }

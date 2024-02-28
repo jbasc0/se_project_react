@@ -6,10 +6,20 @@
   padding: 32px 40px;
 }
 
+.header__info {
+  font-weight: 700;
+  font-size: 20px;
+}
+
 .header__logo {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.header__name {
+  font-weight: 700;
+  font-size: 20px;
 }
 
 .header__avatar-logo {
@@ -18,6 +28,13 @@
   gap: 20px;
 }
 
-.card__section {
-  padding: 0 40px;
+.header__button {
+  background-color: #f3f3f3;
+  border: none;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.header__button:hover {
+  cursor: pointer;
 }
