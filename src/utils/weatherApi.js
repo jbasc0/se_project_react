@@ -20,3 +20,8 @@ export const parseWeatherData = (data) => {
   const temperature = main && main.temp;
   return Math.ceil(temperature);
 };
+
+export const getCity = (data) => {
+  const city = data.name;
+  return city;
+};

@@ -5,11 +5,15 @@
 }
 
 .app__name {
-  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 440px;
 }
 
 .app__url {
-  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 440px;
 }
 
 .app__name-input {
