@@ -50,43 +50,46 @@ function App() {
       <Footer />
       {activeModal === "create" && (
         <ModalWithForm title="New Garment" onClose={handleCloseModal}>
-          <label className="app__name">
+          <label htmlFor="name" className="app__name">
             Name
-            <input
-              className="app__name-input"
-              placeholder="Name"
-              type="text"
-              name="name"
-              minLength="1"
-              maxLength="30"
-            />
           </label>
 
-          <label className="app__url">
+          <input
+            className="app__name-input"
+            placeholder="Name"
+            type="text"
+            name="name"
+            id="name"
+            minLength="1"
+            maxLength="30"
+          />
+
+          <label htmlFor="link" className="app__url">
             Image
-            <input
-              className="app__image-input"
-              placeholder="Image URL"
-              type="url"
-              name="link"
-              minLength="1"
-              maxLength="30"
-            />
           </label>
 
+          <input
+            className="app__image-input"
+            placeholder="Image URL"
+            type="url"
+            name="link"
+            id="link"
+            minLength="1"
+            maxLength="30"
+          />
           <p>Select the weather type:</p>
           <div className="app__buttons">
             <div>
               <input name="radio" type="radio" id="hot" value="hot" />
-              <label>Hot</label>
+              <label htmlFor="hot">Hot</label>
             </div>
             <div>
               <input name="radio" type="radio" id="warm" value="warm" />
-              <label>Warm</label>
+              <label htmlFor="warm">Warm</label>
             </div>
             <div>
               <input name="radio" type="radio" id="cold" value="cold" />
-              <label>Cold</label>
+              <label htmlFor="cold">Cold</label>
             </div>
           </div>
         </ModalWithForm>
