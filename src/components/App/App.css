@@ -20,11 +20,13 @@
   border: none;
   border-bottom: solid 1px;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .app__image-input {
   border: none;
   border-bottom: solid 1px;
+  margin-top: 10px;
 }
 
 .app__buttons {
