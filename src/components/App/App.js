@@ -11,11 +11,12 @@ import {
   parseWeatherData,
 } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
+import AddItemModal from "../AddItemModal/AddItemModal";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [temp, setTemp] = useState(0);
+  const [temp, setTemp] = useState({ temperature: {} });
   const [city, setCity] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
@@ -30,6 +31,10 @@ function App() {
   const handleSelectedCard = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
+  };
+
+  const onAddItem = (values) => {
+    console.log(values);
   };
 
   const handleToggleSwitchChange = () => {
@@ -56,53 +61,18 @@ function App() {
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <Header onCreateModal={handleCreateModal} city={city} />
-        <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+        <Main
+          context={currentTemperatureUnit}
+          weatherTemp={temp}
+          onSelectCard={handleSelectedCard}
+        />
         <Footer />
         {activeModal === "create" && (
-          <ModalWithForm title="New Garment" onClose={handleCloseModal}>
-            <label htmlFor="name" className="app__name">
-              Name
-            </label>
-
-            <input
-              className="app__name-input"
-              placeholder="Name"
-              type="text"
-              name="name"
-              id="name"
-              minLength="1"
-              maxLength="30"
-            />
-
-            <label htmlFor="link" className="app__url">
-              Image
-            </label>
-
-            <input
-              className="app__image-input"
-              placeholder="Image URL"
-              type="url"
-              name="link"
-              id="link"
-              minLength="1"
-              maxLength="30"
-            />
-            <p>Select the weather type:</p>
-            <div className="app__buttons">
-              <div>
-                <input name="radio" type="radio" id="hot" value="hot" />
-                <label htmlFor="hot">Hot</label>
-              </div>
-              <div>
-                <input name="radio" type="radio" id="warm" value="warm" />
-                <label htmlFor="warm">Warm</label>
-              </div>
-              <div>
-                <input name="radio" type="radio" id="cold" value="cold" />
-                <label htmlFor="cold">Cold</label>
-              </div>
-            </div>
-          </ModalWithForm>
+          <AddItemModal
+            handleCloseModal={handleCloseModal}
+            isOpen={activeModal === "create"}
+            onAddItem={onAddItem}
+          />
         )}
         {activeModal === "preview" && (
           <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
