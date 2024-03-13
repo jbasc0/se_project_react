@@ -22,7 +22,7 @@ const AddItemModal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddItem({
-      _id: clothingItems.length + 1,
+      _id: clothingItems.length,
       name,
       imageUrl: link,
       weather: radio,
