@@ -6,13 +6,17 @@ const AddItemModal = ({ handleCloseModal, onAddItem, isOpen }) => {
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
-  const [link, setLink] = useState("");
-  const handleLinkChange = (e) => {
-    setLink(e.target.value);
+  const [link, setUrl] = useState("");
+  const handleUrlChange = (e) => {
+    setUrl(e.target.value);
+  };
+  const [radio, setRadio] = useState("");
+  const handleRadioChange = (e) => {
+    setRadio(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, link });
+    onAddItem({ name, imageUrl: link, weather: radio });
   };
 
   return (
@@ -36,6 +40,7 @@ const AddItemModal = ({ handleCloseModal, onAddItem, isOpen }) => {
         maxLength="30"
         value={name}
         onChange={handleNameChange}
+        required
       />
 
       <label htmlFor="link" className="app__url">
@@ -51,20 +56,39 @@ const AddItemModal = ({ handleCloseModal, onAddItem, isOpen }) => {
         minLength="1"
         maxLength="100"
         value={link}
-        onChange={handleLinkChange}
+        onChange={handleUrlChange}
+        required
       />
       <p>Select the weather type:</p>
       <div className="app__buttons">
         <div>
-          <input name="radio" type="radio" id="hot" value="hot" />
+          <input
+            name="radio"
+            type="radio"
+            id="hot"
+            value="hot"
+            onChange={handleRadioChange}
+          />
           <label htmlFor="hot">Hot</label>
         </div>
         <div>
-          <input name="radio" type="radio" id="warm" value="warm" />
+          <input
+            name="radio"
+            type="radio"
+            id="warm"
+            value="warm"
+            onChange={handleRadioChange}
+          />
           <label htmlFor="warm">Warm</label>
         </div>
         <div>
-          <input name="radio" type="radio" id="cold" value="cold" />
+          <input
+            name="radio"
+            type="radio"
+            id="cold"
+            value="cold"
+            onChange={handleRadioChange}
+          />
           <label htmlFor="cold">Cold</label>
         </div>
       </div>

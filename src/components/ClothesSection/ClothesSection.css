@@ -1,0 +1,26 @@
+.clothes__section-header {
+  display: flex;
+  gap: 15px;
+}
+
+.clothes__section-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.clothes__section-button {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.clothes__section-button:hover {
+  cursor: pointer;
+}
+
+.clothes__section-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}

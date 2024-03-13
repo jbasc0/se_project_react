@@ -12,6 +12,8 @@ import {
 } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import Profile from "../Profile/Profile";
+import { defaultClothingItems } from "../../utils/const";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -19,6 +21,7 @@ function App() {
   const [temp, setTemp] = useState({ temperature: {} });
   const [city, setCity] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [clothingItems, setClothingItems] = useState([]);
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -33,13 +36,14 @@ function App() {
     setSelectedCard(card);
   };
 
-  const onAddItem = (values) => {
+  const handleAddItemSubmit = (values) => {
     console.log(values);
   };
 
   const handleToggleSwitchChange = () => {
-    if (currentTemperatureUnit === "C") setCurrentTemperatureUnit("F");
-    if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
+    currentTemperatureUnit === "F"
+      ? setCurrentTemperatureUnit("C")
+      : setCurrentTemperatureUnit("F");
   };
 
   useEffect(() => {
@@ -61,17 +65,18 @@ function App() {
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <Header onCreateModal={handleCreateModal} city={city} />
-        <Main
-          context={currentTemperatureUnit}
-          weatherTemp={temp}
+        <Profile
           onSelectCard={handleSelectedCard}
+          onCreateModal={handleCreateModal}
+          clothingItems={defaultClothingItems}
         />
+        <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
         <Footer />
         {activeModal === "create" && (
           <AddItemModal
             handleCloseModal={handleCloseModal}
             isOpen={activeModal === "create"}
-            onAddItem={onAddItem}
+            onAddItem={handleAddItemSubmit}
           />
         )}
         {activeModal === "preview" && (
