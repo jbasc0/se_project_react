@@ -1,6 +1,6 @@
 import "./WeatherCard.css";
 import { weatherOptions } from "../../utils/const";
-import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import React from "react";
 
 const WeatherCard = ({ day, type, weatherTemp, weatherUnit }) => {

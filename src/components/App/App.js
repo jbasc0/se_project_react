@@ -10,7 +10,7 @@ import {
   getForecastWeather,
   parseWeatherData,
 } from "../../utils/weatherApi";
-import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
 import { Route, Routes } from "react-router-dom";
