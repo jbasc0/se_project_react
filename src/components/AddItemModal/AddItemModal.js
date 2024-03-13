@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const AddItemModal = ({ handleCloseModal, onAddItem, isOpen }) => {
+const AddItemModal = ({
+  handleCloseModal,
+  onAddItem,
+  isOpen,
+  clothingItems,
+}) => {
   const [name, setName] = useState("");
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -16,7 +21,12 @@ const AddItemModal = ({ handleCloseModal, onAddItem, isOpen }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, link: link, weather: radio });
+    onAddItem({
+      _id: clothingItems.length + 1,
+      name,
+      imageUrl: link,
+      weather: radio,
+    });
   };
 
   return (

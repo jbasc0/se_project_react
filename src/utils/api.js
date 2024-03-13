@@ -7,18 +7,19 @@ export const checkServerResponse = (res) => {
 };
 
 export const getClothes = () => {
-  return fetch(`${baseUrl}/items`);
+  return fetch(`${baseUrl}/items`).then(checkServerResponse);
 };
 
-export const addClothes = ({ name, link, weather }) => {
+export const addClothes = ({ _id, name, imageUrl, weather }) => {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      _id: _id,
       name: name,
-      link: link,
+      imageUrl: imageUrl,
       weather: weather,
     }),
   }).then(checkServerResponse);

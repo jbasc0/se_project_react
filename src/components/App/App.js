@@ -13,7 +13,6 @@ import {
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
-import { defaultClothingItems } from "../../utils/const";
 import { Route, Routes } from "react-router-dom";
 import { getClothes, addClothes, deleteClothes } from "../../utils/api";
 
@@ -39,16 +38,16 @@ function App() {
   };
 
   const handleAddItemSubmit = (values) => {
-    addClothes(values);
-    setClothingItems([values, ...clothingItems]);
-    console.log(clothingItems);
-    handleCloseModal(activeModal);
+    addClothes(values)
+      .then((item) => setClothingItems([item, ...clothingItems]))
+      .then(() => handleCloseModal(activeModal));
   };
 
   const handleDelete = (id) => {
     const updatedClothes = clothingItems.filter((item) => item._id !== id);
-    setClothingItems(updatedClothes);
-    handleCloseModal(activeModal);
+    deleteClothes(id)
+      .then(() => setClothingItems(updatedClothes))
+      .then(() => handleCloseModal(activeModal));
   };
 
   const handleToggleSwitchChange = () => {
@@ -83,6 +82,15 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    getClothes()
+      .then((res) => {
+        console.log(res);
+        setClothingItems(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div className="app">
       <CurrentTemperatureUnitContext.Provider
@@ -94,7 +102,11 @@ function App() {
             exact
             path="/"
             element={
-              <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+              <Main
+                weatherTemp={temp}
+                onSelectCard={handleSelectedCard}
+                clothingItems={clothingItems}
+              />
             }
           />
           <Route
@@ -114,6 +126,7 @@ function App() {
             handleCloseModal={handleCloseModal}
             isOpen={activeModal === "create"}
             onAddItem={handleAddItemSubmit}
+            clothingItems={clothingItems}
           />
         )}
         {activeModal === "preview" && (
