@@ -15,6 +15,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
 import { defaultClothingItems } from "../../utils/const";
 import { Route, Routes } from "react-router-dom";
+import { getClothes, addClothes, deleteClothes } from "../../utils/api";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -22,7 +23,7 @@ function App() {
   const [temp, setTemp] = useState({ temperature: {} });
   const [city, setCity] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState([...defaultClothingItems]);
+  const [clothingItems, setClothingItems] = useState([]);
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -38,7 +39,8 @@ function App() {
   };
 
   const handleAddItemSubmit = (values) => {
-    setClothingItems([values, ...defaultClothingItems]);
+    addClothes(values);
+    setClothingItems([values, ...clothingItems]);
     console.log(clothingItems);
     handleCloseModal(activeModal);
   };
