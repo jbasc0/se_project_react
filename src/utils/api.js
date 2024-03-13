@@ -10,14 +10,13 @@ export const getClothes = () => {
   return fetch(`${baseUrl}/items`).then(checkServerResponse);
 };
 
-export const addClothes = ({ _id, name, imageUrl, weather }) => {
+export const addClothes = ({ name, imageUrl, weather }) => {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      _id: _id,
       name: name,
       imageUrl: imageUrl,
       weather: weather,

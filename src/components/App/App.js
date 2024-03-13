@@ -40,14 +40,20 @@ function App() {
   const handleAddItemSubmit = (values) => {
     addClothes(values)
       .then((item) => setClothingItems([item, ...clothingItems]))
-      .then(() => handleCloseModal(activeModal));
+      .then(() => handleCloseModal(activeModal))
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleDelete = (id) => {
     const updatedClothes = clothingItems.filter((item) => item._id !== id);
     deleteClothes(id)
       .then(() => setClothingItems(updatedClothes))
-      .then(() => handleCloseModal(activeModal));
+      .then(() => handleCloseModal(activeModal))
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleToggleSwitchChange = () => {
