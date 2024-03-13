@@ -14,7 +14,7 @@ import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUni
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
 import { defaultClothingItems } from "../../utils/const";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -66,18 +66,25 @@ function App() {
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <Header onCreateModal={handleCreateModal} city={city} />
-        <Switch>
-          <Route exact path="/">
-            <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
-          </Route>
-          <Route path="/profile">
-            <Profile
-              onSelectCard={handleSelectedCard}
-              onCreateModal={handleCreateModal}
-              clothingItems={defaultClothingItems}
-            />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                onSelectCard={handleSelectedCard}
+                onCreateModal={handleCreateModal}
+                clothingItems={defaultClothingItems}
+              />
+            }
+          />
+        </Routes>
         <Footer />
         {activeModal === "create" && (
           <AddItemModal
