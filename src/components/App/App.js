@@ -22,7 +22,7 @@ function App() {
   const [temp, setTemp] = useState({ temperature: {} });
   const [city, setCity] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState([]);
+  const [clothingItems, setClothingItems] = useState([...defaultClothingItems]);
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -38,7 +38,15 @@ function App() {
   };
 
   const handleAddItemSubmit = (values) => {
-    console.log(values);
+    setClothingItems([values, ...defaultClothingItems]);
+    console.log(clothingItems);
+    handleCloseModal(activeModal);
+  };
+
+  const handleDelete = (id) => {
+    const updatedClothes = clothingItems.filter((item) => item._id !== id);
+    setClothingItems(updatedClothes);
+    handleCloseModal(activeModal);
   };
 
   const handleToggleSwitchChange = () => {
@@ -46,6 +54,19 @@ function App() {
       ? setCurrentTemperatureUnit("C")
       : setCurrentTemperatureUnit("F");
   };
+
+  useEffect(() => {
+    if (!activeModal) return;
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+    document.addEventListener("keydown", handleEscClose);
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   useEffect(() => {
     getForecastWeather()
@@ -80,7 +101,7 @@ function App() {
               <Profile
                 onSelectCard={handleSelectedCard}
                 onCreateModal={handleCreateModal}
-                clothingItems={defaultClothingItems}
+                clothingItems={clothingItems}
               />
             }
           />
@@ -94,7 +115,11 @@ function App() {
           />
         )}
         {activeModal === "preview" && (
-          <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
+          <ItemModal
+            selectedCard={selectedCard}
+            onClose={handleCloseModal}
+            onDelete={handleDelete}
+          />
         )}
       </CurrentTemperatureUnitContext.Provider>
     </div>

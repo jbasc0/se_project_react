@@ -16,7 +16,7 @@ const AddItemModal = ({ handleCloseModal, onAddItem, isOpen }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, imageUrl: link, weather: radio });
+    onAddItem({ name, link: link, weather: radio });
   };
 
   return (

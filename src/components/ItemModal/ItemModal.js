@@ -1,11 +1,11 @@
 import "./ItemModal.css";
 import close from "../../images/close item.svg";
 
-const ItemModal = ({ selectedCard, onClose }) => {
-  // const handleDelete = (e) => {
-  //   e.preventDefault();
-  //   onDelete(selectedCard._id);
-  // };
+const ItemModal = ({ selectedCard, onClose, onDelete }) => {
+  const handleDelete = (e) => {
+    e.preventDefault();
+    onDelete(selectedCard._id);
+  };
   return (
     <div className={"modal"}>
       <div className="modal__item-content">
@@ -23,7 +23,7 @@ const ItemModal = ({ selectedCard, onClose }) => {
         </div>
         <button
           className="modal__item-delete"
-          // onClick={handleDelete}
+          onClick={handleDelete}
           type="button"
         >
           Delete item
