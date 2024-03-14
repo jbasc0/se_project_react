@@ -47,10 +47,11 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    const updatedClothes = clothingItems.filter((item) => item._id !== id);
+    let updatedClothes = [];
     deleteClothes(id)
+      .then((updatedClothes = clothingItems.filter((item) => item._id !== id)))
       .then(() => setClothingItems(updatedClothes))
-      .then(() => handleCloseModal(activeModal))
+      .then(handleCloseModal)
       .catch((err) => {
         console.error(err);
       });
@@ -91,7 +92,6 @@ function App() {
   useEffect(() => {
     getClothes()
       .then((res) => {
-        console.log(res);
         setClothingItems(res);
       })
       .catch((err) => console.log(err));
