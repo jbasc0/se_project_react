@@ -7,9 +7,7 @@ const APIkey = "6cb0addff609de3411e1d7b411b434af";
 export const getForecastWeather = () => {
   const weatherApi = fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`
-  )
-    .then(checkServerResponse)
-    .catch((err) => console.log(err));
+  ).then(checkServerResponse);
   return weatherApi;
 };
 

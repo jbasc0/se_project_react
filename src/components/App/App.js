@@ -40,17 +40,18 @@ function App() {
   const handleAddItemSubmit = (values) => {
     addClothes(values)
       .then((item) => setClothingItems([item, ...clothingItems]))
-      .then(() => handleCloseModal(activeModal))
+      .then(handleCloseModal)
       .catch((err) => {
         console.error(err);
       });
   };
 
   const handleDelete = (id) => {
-    let updatedClothes = [];
     deleteClothes(id)
-      .then((updatedClothes = clothingItems.filter((item) => item._id !== id)))
-      .then(() => setClothingItems(updatedClothes))
+      .then(() => {
+        const updatedClothes = clothingItems.filter((item) => item._id !== id);
+        setClothingItems(updatedClothes);
+      })
       .then(handleCloseModal)
       .catch((err) => {
         console.error(err);
