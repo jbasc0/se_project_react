@@ -3,7 +3,8 @@ import close from "../../images/close.svg";
 
 const ModalWithForm = ({
   children,
-  buttonText = "Add garment",
+  buttonText,
+  buttonText2,
   title,
   onClose,
   name,
@@ -19,9 +20,14 @@ const ModalWithForm = ({
         <h3 className="modal__title">{title}</h3>
         <form onSubmit={onSubmit} className="modal__form">
           {children}
-          <button className="modal__button-submit" type="submit">
-            {buttonText}
-          </button>
+          <div>
+            <button className="modal__button-submit" type="submit">
+              {buttonText}
+            </button>
+            <button className="modal__button-2" type="submit">
+              {buttonText2}
+            </button>
+          </div>
         </form>
       </div>
     </div>

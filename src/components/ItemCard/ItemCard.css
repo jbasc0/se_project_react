@@ -5,7 +5,7 @@
   text-align: center;
   background-color: #fff;
   position: relative;
-  top: 30px;
+  top: 50px;
   color: rgba(0, 0, 0, 0.6);
   font-size: 16px;
   font-weight: 700;
@@ -18,5 +18,29 @@
 }
 
 .card__image:hover {
+  cursor: pointer;
+}
+
+.card__like-button {
+  background: url("../../images/dislike.svg") center no-repeat;
+  background-size: contain;
+  position: relative;
+  border: none;
+  width: 18px;
+  height: 15px;
+  top: 32px;
+  left: 230px;
+  cursor: pointer;
+}
+
+.card__like-button-visible {
+  background: url("../../images/like.svg") center no-repeat;
+  background-size: contain;
+  position: relative;
+  border: none;
+  width: 18px;
+  height: 15px;
+  top: 32px;
+  left: 230px;
   cursor: pointer;
 }

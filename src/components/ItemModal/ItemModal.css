@@ -66,3 +66,7 @@
 .modal__item-delete:hover {
   cursor: pointer;
 }
+
+.modal__item-delete-hidden {
+  visibility: hidden;
+}

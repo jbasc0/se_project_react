@@ -1,17 +1,48 @@
-.sidebar {
+.sidebar__info {
   display: flex;
   max-width: 345px;
   width: 100%;
   gap: 15px;
+  margin-right: 195px;
 }
 
 .sidebar__avatar {
   width: 56px;
   height: 56px;
+  border-radius: 50%;
 }
 
 .sidebar__name {
   margin-top: 15px;
   font-size: 20px;
   font-weight: 700;
+}
+
+.sidebar__edit-info {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.sidebar__log-off {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.sidebar__buttons {
+  display: flex;
+  flex-direction: column;
 }
