@@ -24,7 +24,7 @@ import RegisterModal from "../ModalWithForm/RegisterModal";
 import SignInModal from "../ModalWithForm/SignInModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { getUser, signIn, signUp, updateUser } from "../Auth/auth";
-import { setToken, getToken, removeToken } from "../../utils/token";
+import { setToken, getToken } from "../../utils/token";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import EditProfileModal from "../ModalWithForm/EditProfileModal";
 
@@ -39,15 +39,9 @@ function App() {
   const [isLiked, setIsLiked] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
-    email: "",
-    password: "",
     avatar: "",
-  });
-  const [currentUser, setCurrentUser] = useState({
-    name: "",
-    email: "",
-    password: "",
-    avatar: "",
+    _id: "",
+    token: "",
   });
 
   const navigate = useNavigate();
@@ -77,11 +71,19 @@ function App() {
     setSelectedCard(card);
   };
 
+  const handleToggleSwitchChange = () => {
+    currentTemperatureUnit === "F"
+      ? setCurrentTemperatureUnit("C")
+      : setCurrentTemperatureUnit("F");
+  };
+
   const handleSignUp = ({ name, avatar, email, password }) => {
     signUp({ name, avatar, email, password })
-      .then(() => {
-        setIsLoggedIn(true);
-        setCurrentUser({ name, avatar, email, password });
+      .then((res) => {
+        setUserState(
+          { name: res.name, avatar: res.avatar, _id: res._id },
+          true
+        );
         navigate("/profile");
       })
       .catch((err) => {
@@ -91,17 +93,13 @@ function App() {
   };
 
   const handleSignIn = ({ email, password }) => {
-    if (!email || !password) {
-      return;
-    }
-    signIn(email, password)
-      .then((res) => {
-        if (res.token) {
-          setToken(res.token);
-          setUserData(res.user);
-          setIsLoggedIn(true);
+    signIn({ email, password })
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
+        getUser(data.token).then((user) => {
+          setUserState(user, data.token, true);
           navigate("/profile");
-        }
+        });
       })
       .catch((err) => {
         console.error(err.message);
@@ -109,8 +107,7 @@ function App() {
       .finally(handleCloseModal);
   };
 
-  const handleUpdateUser = ({ name, avatar }) => {
-    const token = getToken();
+  const handleUpdateUser = ({ name, avatar }, token) => {
     updateUser({ name, avatar }, token)
       .then((res) => {
         setUserData(res.user);
@@ -121,9 +118,8 @@ function App() {
       .finally(handleCloseModal);
   };
 
-  const handleCardLike = (id) => {
+  const handleCardLike = (id, token) => {
     console.log(id);
-    const token = getToken();
     !isLiked
       ? addLike(id, token)
           .then((updatedCard) => {
@@ -143,8 +139,7 @@ function App() {
           .catch((err) => console.log(err));
   };
 
-  const handleAddItemSubmit = (values) => {
-    const token = getToken();
+  const handleAddItemSubmit = (values, token) => {
     addClothes(values, token)
       .then((item) => setClothingItems([item, ...clothingItems]))
       .catch((err) => {
@@ -153,8 +148,7 @@ function App() {
       .finally(handleCloseModal);
   };
 
-  const handleDelete = (id) => {
-    const token = getToken();
+  const handleDelete = (id, token) => {
     deleteClothes(id, token)
       .then(() => {
         const updatedClothes = clothingItems.filter((item) => item._id !== id);
@@ -167,34 +161,39 @@ function App() {
   };
 
   const handleLogOff = () => {
+    localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     navigate("/");
   };
 
-  const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+  const setUserState = (user, token) => {
+    setUserData({
+      name: user.name,
+      avatar: user.avatar,
+      _id: user._id,
+      token: token,
+    });
+    setIsLoggedIn(true);
+  };
+
+  const handleCheckToken = () => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      return getUser(token)
+        .then((user) => {
+          console.log(token);
+          setUserState(user, token, true);
+          return user;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+    return token;
   };
 
   useEffect(() => {
-    const jwt = getToken();
-    if (!jwt) {
-      return;
-    }
-  });
-
-  useEffect(() => {
-    const token = getToken();
-    getUser(token)
-      .then((data) => {
-        setIsLoggedIn(true);
-        setUserData(data);
-        navigate("/profile");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    handleCheckToken();
   }, []);
 
   useEffect(() => {
@@ -232,11 +231,11 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <CurrentTemperatureUnitContext.Provider
-        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-      >
-        <CurrentUserContext.Provider value={userData}>
+    <CurrentUserContext.Provider value={userData}>
+      <div className="app">
+        <CurrentTemperatureUnitContext.Provider
+          value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+        >
           <Header
             onCreateModal={handleCreateModal}
             onSignUpModal={handleSignUpModal}
@@ -314,9 +313,9 @@ function App() {
               isLiked={handleCardLike}
             />
           )}
-        </CurrentUserContext.Provider>
-      </CurrentTemperatureUnitContext.Provider>
-    </div>
+        </CurrentTemperatureUnitContext.Provider>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

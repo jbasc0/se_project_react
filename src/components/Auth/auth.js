@@ -12,7 +12,7 @@ export const signUp = ({ name, avatar, email, password }) => {
   }).then(checkServerResponse);
 };
 
-export const signIn = (email, password) => {
+export const signIn = ({ email, password }) => {
   return fetch(`${baseUrl}/signin`, {
     method: "POST",
     headers: {

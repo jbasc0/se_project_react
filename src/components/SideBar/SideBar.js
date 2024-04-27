@@ -2,7 +2,7 @@ import avatar from "../../images/Avatar.svg";
 import "./SideBar.css";
 
 const SideBar = ({ name, avatar, onEditProfileModal, logOffProfile }) => {
-  console.log(name);
+  
   return (
     <section>
       <div className="sidebar__info">

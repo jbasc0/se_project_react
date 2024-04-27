@@ -36,7 +36,7 @@ export const deleteClothes = (id, token) => {
 };
 
 export const addLike = (id, token) => {
-  return fetch(`${baseUrl}/items/${id}`, {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "PUT",
     headers: {
       "Content-type": "application/json",
@@ -46,7 +46,7 @@ export const addLike = (id, token) => {
 };
 
 export const removeLike = (id, token) => {
-  return fetch(`${baseUrl}/items/${id}`, {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "DELETE",
     headers: {
       "Content-type": "application/json",

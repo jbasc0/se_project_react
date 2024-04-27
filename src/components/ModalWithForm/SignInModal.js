@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import ModalWithForm from "./ModalWithForm";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
-import { toBeDisabled } from "@testing-library/jest-dom/matchers";
 
 const SignInModal = ({ isOpen, handleCloseModal, handleSignIn }) => {
   const [values, setValues] = useState({
