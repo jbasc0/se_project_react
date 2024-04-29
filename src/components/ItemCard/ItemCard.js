@@ -5,13 +5,13 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 const ItemCard = ({ item, onSelectCard, onCardLike }) => {
   const handleLike = () => {
     onCardLike(item._id, isLiked);
+
     if (isLiked) {
       setIsLiked(false);
     } else {
       setIsLiked(true);
     }
   };
-  const isOwn = item.likes.some((id) => id === currentUser._id);
   const [isLiked, setIsLiked] = useState();
   const currentUser = React.useContext(CurrentUserContext);
   // const itemLikeButtonClassName = `card__like-button ${

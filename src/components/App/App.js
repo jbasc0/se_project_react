@@ -261,6 +261,7 @@ function App() {
                   weatherTemp={temp}
                   onSelectCard={handleSelectedCard}
                   clothingItems={clothingItems}
+                  onCardLike={handleCardLike}
                 />
               }
             />
