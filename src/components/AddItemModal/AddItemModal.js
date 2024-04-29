@@ -1,10 +1,7 @@
 import React, { useState, useContext } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 const AddItemModal = ({ handleCloseModal, onAddItem, isOpen }) => {
-  const { user } = React.useContext({ CurrentUserContext });
-  console.log(user);
   const [name, setName] = useState("");
   const handleNameChange = (e) => {
     setName(e.target.value);

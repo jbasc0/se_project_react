@@ -42,6 +42,7 @@ export const addLike = (id, token) => {
       "Content-type": "application/json",
       authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({ id }),
   }).then(checkServerResponse);
 };
 
@@ -52,5 +53,6 @@ export const removeLike = (id, token) => {
       "Content-type": "application/json",
       authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({ id }),
   }).then(checkServerResponse);
 };

@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ItemCard.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 const ItemCard = ({ item, onSelectCard, onCardLike }) => {
-  console.log(item._id);
   const handleLike = () => {
-    onCardLike(item._id);
+    onCardLike(item._id, isLiked);
+    if (isLiked) {
+      setIsLiked(false);
+    } else {
+      setIsLiked(true);
+    }
   };
-  // const currentUser = React.useContext(CurrentUserContext);
-  // const isLiked = item.likes.some((id) => id === currentUser._id);
+  const isOwn = item.likes.some((id) => id === currentUser._id);
+  const [isLiked, setIsLiked] = useState();
+  const currentUser = React.useContext(CurrentUserContext);
   // const itemLikeButtonClassName = `card__like-button ${
   //   isLiked ? "card__like-button-visible" : "card__like-button-hidden"
   // }`;
+  useEffect(() => {
+    if (item.likes.length > 0) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, []);
   return (
     <div>
       <div className="card__name">{item.name}</div>
       <button
-        className="card__like-button"
+        className={isLiked ? "card__like-button-visible" : "card__like-button"}
         type="button"
         onClick={handleLike}
       ></button>

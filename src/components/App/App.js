@@ -36,7 +36,7 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
+
   const [userData, setUserData] = useState({
     name: "",
     avatar: "",
@@ -107,10 +107,11 @@ function App() {
       .finally(handleCloseModal);
   };
 
-  const handleUpdateUser = ({ name, avatar }, token) => {
+  const handleUpdateUser = ({ name, avatar }) => {
+    const token = localStorage.getItem("jwt");
     updateUser({ name, avatar }, token)
-      .then((res) => {
-        setUserData(res.user);
+      .then(({ res }) => {
+        setUserData({ name: res.name, avatar: res.avatar });
       })
       .catch((err) => {
         console.error(err.message);
@@ -118,28 +119,33 @@ function App() {
       .finally(handleCloseModal);
   };
 
-  const handleCardLike = (id, token) => {
-    console.log(id);
-    !isLiked
-      ? addLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
-            setIsLiked(true);
-          })
-          .catch((err) => console.log(err))
-      : removeLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
-            setIsLiked(false);
-          })
-          .catch((err) => console.log(err));
+  const handleCardLike = (id, isLiked) => {
+    const token = localStorage.getItem("jwt");
+    if (!isLiked) {
+      addLike(id, token)
+        .then((updatedCard) => {
+          setClothingItems((cards) =>
+            cards.map((item) =>
+              item._id === updatedCard._id ? updatedCard : item
+            )
+          );
+        })
+        .catch((err) => console.log(err));
+    } else {
+      removeLike(id, token)
+        .then((updatedCard) => {
+          setClothingItems((cards) =>
+            cards.map((item) =>
+              item._id === updatedCard._id ? updatedCard : item
+            )
+          );
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
-  const handleAddItemSubmit = (values, token) => {
+  const handleAddItemSubmit = (values) => {
+    const token = localStorage.getItem("jwt");
     addClothes(values, token)
       .then((item) => setClothingItems([item, ...clothingItems]))
       .catch((err) => {
@@ -148,7 +154,8 @@ function App() {
       .finally(handleCloseModal);
   };
 
-  const handleDelete = (id, token) => {
+  const handleDelete = (id) => {
+    const token = localStorage.getItem("jwt");
     deleteClothes(id, token)
       .then(() => {
         const updatedClothes = clothingItems.filter((item) => item._id !== id);
@@ -162,6 +169,7 @@ function App() {
 
   const handleLogOff = () => {
     localStorage.removeItem("jwt");
+    setUserData({ name: "", avatar: "", _id: "", token: "" });
     setIsLoggedIn(false);
     navigate("/");
   };
@@ -181,7 +189,6 @@ function App() {
     if (token) {
       return getUser(token)
         .then((user) => {
-          console.log(token);
           setUserState(user, token, true);
           return user;
         })
