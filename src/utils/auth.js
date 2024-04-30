@@ -1,5 +1,5 @@
-import { checkServerResponse } from "../../utils/api";
-import { baseUrl } from "../../utils/api";
+import { checkServerResponse } from "./api";
+import { baseUrl } from "./api";
 
 export const signUp = ({ name, avatar, email, password }) => {
   return fetch(`${baseUrl}/signup`, {
