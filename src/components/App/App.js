@@ -262,6 +262,7 @@ function App() {
                   onSelectCard={handleSelectedCard}
                   clothingItems={clothingItems}
                   onCardLike={handleCardLike}
+                  isLoggedIn={isLoggedIn}
                 />
               }
             />
@@ -278,6 +279,7 @@ function App() {
                     onEditProfileModal={handleEditProfileModal}
                     onCardLike={handleCardLike}
                     logOffProfile={handleLogOff}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />

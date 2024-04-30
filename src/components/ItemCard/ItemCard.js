@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ItemCard.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-const ItemCard = ({ item, onSelectCard, onCardLike }) => {
+const ItemCard = ({ item, onSelectCard, onCardLike, isLoggedIn }) => {
   const handleLike = () => {
     onCardLike(item._id, isLiked);
 
@@ -27,11 +27,24 @@ const ItemCard = ({ item, onSelectCard, onCardLike }) => {
   return (
     <div>
       <div className="card__name">{item.name}</div>
-      <button
-        className={isLiked ? "card__like-button-visible" : "card__like-button"}
-        type="button"
-        onClick={handleLike}
-      ></button>
+      {isLoggedIn ? (
+        <button
+          className={
+            isLiked ? "card__like-button-visible" : "card__like-button"
+          }
+          type="button"
+          onClick={handleLike}
+        ></button>
+      ) : (
+        <button
+          className={
+            isLiked ? "card__like-button-visible" : "card__like-button"
+          }
+          type="button"
+          onClick={handleLike}
+          disabled
+        ></button>
+      )}
       <div>
         <img
           className="card__image"

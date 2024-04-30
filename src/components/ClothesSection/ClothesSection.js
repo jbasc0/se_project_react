@@ -8,6 +8,7 @@ const ClothesSection = ({
   onSelectCard,
   clothingItems,
   onCardLike,
+  isLoggedIn,
 }) => {
   const currentUser = React.useContext(CurrentUserContext);
   const filteredClothingItems = clothingItems.filter(
@@ -34,6 +35,7 @@ const ClothesSection = ({
             item={item}
             onSelectCard={onSelectCard}
             onCardLike={onCardLike}
+            isLoggedIn={isLoggedIn}
           />
         ))}
       </div>
