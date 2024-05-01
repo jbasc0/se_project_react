@@ -20,8 +20,8 @@ import {
   addLike,
   removeLike,
 } from "../../utils/api";
-import RegisterModal from "../ModalWithForm/RegisterModal";
-import SignInModal from "../ModalWithForm/SignInModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import SignInModal from "../SignInModal/SignInModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { getUser, signIn, signUp, updateUser } from "../../utils/auth";
 import { setToken, getToken } from "../../utils/token";

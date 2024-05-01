@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ModalWithForm from "./ModalWithForm";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const SignInModal = ({ isOpen, handleCloseModal, handleSignIn }) => {
   const [values, setValues] = useState({
