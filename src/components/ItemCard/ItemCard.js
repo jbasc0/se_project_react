@@ -5,10 +5,9 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 const ItemCard = ({ item, onSelectCard, onCardLike, isLoggedIn }) => {
   const handleLike = () => {
     onCardLike(item._id, isLiked);
-
     if (isLiked) {
       setIsLiked(false);
-    } else {
+    } else if (!isLiked) {
       setIsLiked(true);
     }
   };

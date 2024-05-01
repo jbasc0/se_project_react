@@ -26,7 +26,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { getUser, signIn, signUp, updateUser } from "../../utils/auth";
 import { setToken, getToken } from "../../utils/token";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import EditProfileModal from "../ModalWithForm/EditProfileModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -39,6 +39,7 @@ function App() {
 
   const [userData, setUserData] = useState({
     name: "",
+    password: "",
     avatar: "",
     _id: "",
     token: "",
@@ -80,31 +81,49 @@ function App() {
   const handleSignUp = ({ name, avatar, email, password }) => {
     signUp({ name, avatar, email, password })
       .then((res) => {
-        setUserState(
-          { name: res.name, avatar: res.avatar, _id: res._id },
-          true
-        );
-        navigate("/profile");
+        // setUserState(
+        //   { name: res.name, avatar: res.avatar, _id: res._id },
+        //   true
+        // );
+        // navigate("/profile");
+        handleSignIn({ email, password });
       })
+      .then(handleCloseModal)
       .catch((err) => {
         console.error(err.message);
-      })
-      .finally(handleCloseModal);
+      });
   };
 
   const handleSignIn = ({ email, password }) => {
     signIn({ email, password })
       .then((data) => {
         localStorage.setItem("jwt", data.token);
-        getUser(data.token).then((user) => {
-          setUserState(user, data.token, true);
-          navigate("/profile");
-        });
+        handleGetCurrentUser(data.token);
+        // getUser(data.token)
+        //   .then((user) => {
+        //     setUserState(user, data.token, true);
+        //     navigate("/profile");
+        //   })
+        //   .then(handleCloseModal)
+        //   .catch((err) => {
+        //     console.error(err.message);
+        //   });
+      })
+      .then(handleCloseModal)
+      .catch((err) => {
+        console.error(err.message);
+      });
+  };
+
+  const handleGetCurrentUser = (token) => {
+    getUser(token)
+      .then((user) => {
+        setUserState(user, token);
+        navigate("/profile");
       })
       .catch((err) => {
         console.error(err.message);
-      })
-      .finally(handleCloseModal);
+      });
   };
 
   const handleUpdateUser = ({ name, avatar }) => {
@@ -129,7 +148,9 @@ function App() {
               item._id === updatedCard._id ? updatedCard : item
             )
           );
+          return isLiked;
         })
+
         .catch((err) => console.log(err));
     } else {
       removeLike(id, token)
@@ -187,16 +208,17 @@ function App() {
   const handleCheckToken = () => {
     const token = localStorage.getItem("jwt");
     if (token) {
-      return getUser(token)
-        .then((user) => {
-          setUserState(user, token, true);
-          return user;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      handleGetCurrentUser(token);
+      // return getUser(token)
+      //   .then((user) => {
+      //     setUserState(user, token, true);
+      //     return user;
+      //   })
+      //   .catch((err) => {
+      //     console.error(err);
+      // });
     }
-    return token;
+    // return token;
   };
 
   useEffect(() => {
