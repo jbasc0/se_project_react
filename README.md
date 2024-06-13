@@ -9,3 +9,4 @@ The "WTWR" app should allow users to:
 3. add and delete clothing items to their profile
 4. edit their profile name and avatar
 5. like and dislike clothing items
+# final_project
